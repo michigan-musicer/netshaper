@@ -1,0 +1,32 @@
+FROM amirsabzi/netshaper:peer2-shaping
+
+RUN mkdir /root/traces
+
+RUN echo "" \
+{ \
+  \"logLevel\": \"ERROR\", \
+  \"maxStreamsPerPeer\": 130, \
+  \"appName\": \"minesVPNPeer2\", \
+  \"queueSize\": 96000000, \
+  \"shapedServer\": { \
+    \"serverCert\": \"server.cert\", \
+    \"serverKey\": \"server.key\", \
+    \"listeningPort\": 4567, \
+    \"noiseMultiplier\": 23.92, \
+    \"sensitivity\": 153600, \
+    \"maxDecisionSize\": 465000000, \
+    \"minDecisionSize\": 0, \
+    \"DPCreditorLoopInterval\": 50000, \
+    \"sendingLoopInterval\": 0, \
+    \"strategy\": \"BURST\", \
+    \"shaperCores\": [2], \
+    \"workerCores\": [3] \
+  }, \
+  \"unshapedClient\": { \
+    \"checkQueuesInterval\": 0, \
+    \"cores\": [4] \
+  } \
+} \
+"" > /root/config.json
+
+ENTRYPOINT ["/bin/bash","/root/entrypoint.sh"]
