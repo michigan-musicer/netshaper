@@ -15,3 +15,4 @@ In file `<filename>`:
 ```
 
 **AC:** <acceptance_criteria>
+**How to test:** <testing_instructions>
